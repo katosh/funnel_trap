@@ -90,7 +90,16 @@ end
 
 
 %%% fill diagonal %%%
-for i=1:77*77
+for i=1:77^2
     Q(i,i)=0;
     Q(i,i)=-sum(Q(i,:));
 end
+
+%%%% cut zero lines %%%
+%for i=1:77^2
+%    if sum(Q(i,:)<=0.1)<=0.1
+%        Q(i,:)=[];
+%        Q(:,i)=[];
+%    end
+%end
+
