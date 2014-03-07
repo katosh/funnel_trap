@@ -67,7 +67,7 @@ I=eye(77);
 Q = kron(Q,I) + kron(I,Q);
 
 %%% intreduce the rope %%%
-rl = 2; % rope length
+rl = 3; % rope length
 for i=1:77
     for j=1:77
         % generate cutter vector
@@ -91,5 +91,6 @@ end
 
 %%% fill diagonal %%%
 for i=1:77*77
+    Q(i,i)=0;
     Q(i,i)=-sum(Q(i,:));
 end
