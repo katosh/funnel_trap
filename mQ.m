@@ -64,7 +64,7 @@ end
 
 %%% kronecker sum %%%
 I=eye(77);
-gQ = kron(Q,I) + kron(I,Q);
+Q = kron(Q,I) + kron(I,Q);
 
 %%% intreduce the rope %%%
 rl = 2; % rope length
@@ -81,15 +81,15 @@ for i=1:77
         end
         % generate cutter matrix
         cut = repmat(cutv,77,1) .* repmat(cutv',1,77);
-        % cutting the rates
+        % cutting out unwanted the rates
         zrange = (i-1)*77+1:i*77; % row range
         srange = (j-1)*77+1:j*77; % colum range
-        gQ(zrange,srange) = gQ(zrange,srange) .* cut;
+        Q(zrange,srange) = Q(zrange,srange) .* cut;
     end
 end
 
 
 %%% fill diagonal %%%
 for i=1:77*77
-    gQ(i,i)=-sum(gQ(i,:));
+    Q(i,i)=-sum(Q(i,:));
 end
