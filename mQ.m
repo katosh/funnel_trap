@@ -45,9 +45,12 @@ end
 
 %%% zero rates for nogo directions %%%
 for i=1:length(nogo)
+    % from
     Qzeile = Qco(nogo(i,1),nogo(i,2));
+    % to
     [nz,ns] = neig(nogo(i,1),nogo(i,2),nogo(i,3));
     Qspalte = Qco(nz,ns);
+
     Q(Qzeile, Qspalte) = 0;
 end
 
@@ -62,11 +65,14 @@ for i=1:77
     Q(i,i)=-sum(Q(i,:));
 end
 
-%%% kronecker sum %%%
+%%% preparing the kronecker sum (Q=Q1+Q2) %%%
 I=eye(77);
-Q = kron(Q,I) + kron(I,Q);
+% rates for Particle 1
+Q1 = kron(Q,I);
+% rates for Particle 2
+Q2 = kron(I,Q);
 
-%%% intreduce the rope %%%
+%%% intreducing the rope for Particle 2%%%
 rl = 3; % rope length
 for i=1:77
     for j=1:77
@@ -84,15 +90,25 @@ for i=1:77
         % cutting out unwanted the rates
         zrange = (i-1)*77+1:i*77; % row range
         srange = (j-1)*77+1:j*77; % colum range
-        Q(zrange,srange) = Q(zrange,srange) .* cut;
+        Q2(zrange,srange) = Q2(zrange,srange) .* cut;
+        % fixing the diagonal for mass conservation
+        for k=0:76
+            z = zrange(1) + k;
+            s = srange(1) + k;
+            Q2(z,s) = 0;
+            Q2(z,s) = -sum(Q2(z,srange));
+        end
     end
 end
 
+%%% kronecker sum %%%
+Q = Q1 + Q2;
 
-%%% fill diagonal %%%
+%%% checking the diagonal %%%
 for i=1:77^2
-    Q(i,i)=0;
-    Q(i,i)=-sum(Q(i,:));
+    if Q(i,i) ~= -sum(Q(i,:)) + Q(i,i)
+        display(['Error rates at line ',num2str(i)])
+    end
 end
 
 %%%% cut zero lines %%%
