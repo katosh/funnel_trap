@@ -1,6 +1,6 @@
-%profile viewer
-%profile -memory on
-%setpref('profiler', 'showJitLines', true);
+profile on
+profile -memory on
+setpref('profiler', 'showJitLines', true);
 
 %%% the no be area %%%
 nobe=[  1,1;
@@ -165,3 +165,4 @@ end
 %    end
 %end
 
+profile viewer
