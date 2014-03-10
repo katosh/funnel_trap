@@ -28,8 +28,11 @@ nogo=[  % dont go to nobe
         7,7,1;7,8,3];
 
 %%% generate Q without limits (nobe & nogo) or diagonal %%%
+% base rate a
 a = 1;
+% there are 77 posible states for a particle in the funnel trap
 Q = zeros(77);
+% filling Q with naive rates (no respect to limits)
 for i=1:7
     for j=1:11
         for k=1:4
@@ -74,8 +77,10 @@ Q2 = kron(I,Q);
 
 %%% intreducing the rope for Particle 2%%%
 rl = 3; % rope length
-for i=1:77
-    for j=1:77
+for i=1:77 % line number ^= start point
+    for j=1:77 % collum number ^= the state we ate going to
+        %{ 
+        %}
         % generate cutter vector
         cutv = zeros(1,77);
         for k=1:7
