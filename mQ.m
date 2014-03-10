@@ -1,3 +1,7 @@
+%profile viewer
+%profile -memory on
+%setpref('profiler', 'showJitLines', true);
+
 %%% the no be area %%%
 nobe=[  1,1;
         1,2;
@@ -79,19 +83,56 @@ Q2 = kron(I,Q);
 rl = 3; % rope length
 for i=1:77 % line number ^= start point
     for j=1:77 % collum number ^= the state we ate going to
-        %{ 
+        
+        
+        %%% ----------- states not to go to ----------- %%%
+        %{
+        ------------------------------------------------- 
+        We now want to checkt the posible position for P2
+        to go to when P1 goes to position j. We do that by
+        checking to which neighbors of j the particle could
+        go next by looking at the rates in Q wich are
+        restricted to posible movments. Then the process is
+        repeated on the neighbors for rl-times.
+        This indicates the rope length restricts the
+        distance between the two particles to rl movement
+        steps. We also use negative rates to also count
+        backward steps from P2 to P1 as a possible connection.
+        -------------------------------------------------
         %}
-        % generate cutter vector
-        cutv = zeros(1,77);
-        for k=1:7
-            for l=1:11
-                if abs(k-i)+abs(l-j) <= rl
-                    cutv(Qco(k,l))=1;
-                end
+        % P holds the posible Positions for P2
+        P=[j]; % start with going to j
+        for k=1:rl
+            nP=[]; % new Positions to be added later
+            for p=P
+                nP=[nP find(Q(p,:)~=0)];
             end
+            P=[P nP];
         end
-        % generate cutter matrix
-        cut = repmat(cutv,77,1) .* repmat(cutv',1,77);
+        P = sort(unique(P));
+        % generate going cutter vector (no to go to)
+        gocutv = ones(1,77);
+        gocutv(P) = 0; % using P as index set
+
+
+        %%% ---------- states not to be at ----------- %%%
+        % P holds the posible Positions for P2
+        P=[i]; % start with beeing at i
+        for k=1:rl
+            nP=[]; % new Positions to be added later
+            for p=P
+                nP=[nP find(Q(p,:)~=0)];
+            end
+            P=[P nP];
+        end
+        P = sort(unique(P));
+        % generate going cutter vector (no to go to)
+        becutv = ones(1,77);
+        becutv(P) = 0; % using P as index set
+
+
+        %%% generate cutter matrix
+        cut = repmat(gocutv,77,1) .* repmat(becutv',1,77);
         % cutting out unwanted the rates
         zrange = (i-1)*77+1:i*77; % row range
         srange = (j-1)*77+1:j*77; % colum range
