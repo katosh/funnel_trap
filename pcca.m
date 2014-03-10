@@ -44,8 +44,6 @@ for k=1:n
 end
 A=inv(B);
 chi=X*A;
-plot(chi)
-legend('1','2','3','4','5','6','7','8')
 sym=diag(p)*P;
 max(max(sym-sym'))
 
