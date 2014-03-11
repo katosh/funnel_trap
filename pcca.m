@@ -1,14 +1,10 @@
-profile on
-profile -memory on
-setpref('profiler', 'showJitLines', true);
-
-[V D]=eigs(Q,8,'LR');
-[W E]=eigs(Q',8,'LR');
+n=4;          %3 metastabile Bereiche, da 3 EW in der Naehe von 1
+[V D]=eigs(Q,n,'LR');
+[W E]=eigs(Q',n,'LR');
 D=exp(D);
 p=W(:,1);
 p=p/sum(p);
 
-n=8;          %3 metastabile Bereiche, da 3 EW in der Naehe von 1
 X=V(:,1:n);
 d=diag(p);
 for k=1:n
@@ -48,4 +44,4 @@ chi=X*A;
 %sym=diag(p)*P;
 %max(max(sym-sym'))
 
-profile viewer
+%profile viewer

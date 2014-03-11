@@ -1,7 +1,3 @@
-profile on
-profile -memory on
-setpref('profiler', 'showJitLines', true);
-
 %%% the no be area %%%
 nobe=[  1,1;
         1,2;
@@ -156,6 +152,8 @@ for i=1:77^2
     end
 end
 
+Q = sparse(Q);
+
 %%%% cut zero lines %%%
 %for i=1:77^2
 %    if sum(Q(i,:)<=0.1)<=0.1
@@ -163,5 +161,3 @@ end
 %        Q(:,i)=[];
 %    end
 %end
-
-profile viewer
