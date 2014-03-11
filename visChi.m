@@ -6,7 +6,7 @@ function visChi(chi)
 
 chi=real(chi');
 
-for i=1:length(chi(1,:))
+for i=1:length(chi(:,1))
     figure(i)
     P1 = zeros(1,77);
     P2 = zeros(1,77);
@@ -40,5 +40,6 @@ for i=1:length(chi(1,:))
     image(S1*255);
     subplot(2,1,2);
     image(S2*255);
+    %colorbar(mi:ma);
 end
 end

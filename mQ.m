@@ -75,89 +75,34 @@ Q1 = kron(Q,I);
 % rates for Particle 2
 Q2 = kron(I,Q);
 
-%%% intreducing the rope for Particle 2 %%%
+%%% intreducing the rope / eliminate impossible states %%%
 rl = 3; % rope length
-for i=1:77 % line number ^= start point
-    for j=1:77 % collum number ^= the state we ate going to
-        
-        
-        %%% ----------- states not to go to ----------- %%%
-        %{
-        ------------------------------------------------- 
-        We now want to checkt the posible position for P2
-        to go to when P1 goes to position j. We do that by
-        checking to which neighbors of j the particle could
-        go next by looking at the rates in Q wich are
-        restricted to posible movments. Then the process is
-        repeated on the neighbors for rl-times.
-        This indicates the rope length restricts the
-        distance between the two particles to rl movement
-        steps. We also use negative rates to also count
-        backward steps from P2 to P1 as a possible connection.
-        -------------------------------------------------
-        %}
-        % P holds the posible Positions for P2
-        P=[j]; % start with going to j
-        for k=1:rl
-            nP=[]; % new Positions to be added later
-            for p=P
-                nP=[nP find(Q(p,:)~=0)];
-            end
-            P=[P nP];
+cutv = zeros(1,77^2); % cutting vector
+% looking for possible combination of states
+for i=1:77
+    % for P1 in state i, P2 can be in the stats listed in P
+    P=[i];
+    for k=1:rl
+        nP=[]; % new Positions to be added later
+        for p=P
+            nP=[nP find(Q(p,:)~=0)];
         end
-        P = sort(unique(P));
-        % generate going cutter vector (no to go to)
-        gocutv = ones(1,77);
-        gocutv(P) = 0; % using P as index set
-
-
-        %%% ---------- states not to be at ----------- %%%
-        % P holds the posible Positions for P2
-        P=[i]; % start with beeing at i
-        for k=1:rl
-            nP=[]; % new Positions to be added later
-            for p=P
-                nP=[nP find(Q(p,:)~=0)];
-            end
-            P=[P nP];
-        end
-        P = sort(unique(P));
-        % generate going cutter vector (no to go to)
-        becutv = ones(1,77);
-        becutv(P) = 0; % using P as index set
-
-
-        %%% generate cutter matrix
-        cut = repmat(gocutv,77,1) .* repmat(becutv',1,77);
-        % cutting out unwanted rates
-        zrange = (i-1)*77+1:i*77; % row range
-        srange = (j-1)*77+1:j*77; % colum range
-        Q2(zrange,srange) = Q2(zrange,srange) .* cut;
-        % fixing the diagonal for mass conservation
-        for k=0:76
-            z = zrange(1) + k;
-            s = srange(1) + k;
-            Q2(z,s) = Q2(z,s)-sum(Q2(z,srange));
-        end
+        P=[P nP];
     end
+    P = sort(unique(P)); % not sure if this is necessary
+    range = 1:77 + ((i-1)*77); % fixed state i for P1
+    % adding possible states
+    cutv(range(P))=1;
 end
-
 %%% kronecker sum %%%
 Q = Q1 + Q2;
-
-%%% checking the diagonal %%%
+%%% generate cutter matrix
+cut = repmat(cutv,77^2,1) .* repmat(cutv',1,77^2);
+% cutting out unwanted rates
+Q = Q .* cut;
+% fixing the diagonal for mass conservation
 for i=1:77^2
-    if Q(i,i) ~= -sum(Q(i,:)) + Q(i,i)
-        display(['Error rates at line ',num2str(i)])
-    end
+    Q(i,i) = Q(i,i)-sum(Q(i,:));
 end
-
+% done
 Q = sparse(Q);
-
-%%%% cut zero lines %%%
-%for i=1:77^2
-%    if sum(Q(i,:)<=0.1)<=0.1
-%        Q(i,:)=[];
-%        Q(:,i)=[];
-%    end
-%end
