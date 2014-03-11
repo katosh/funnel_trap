@@ -43,7 +43,7 @@ Q = zeros(77);
 for i=1:7
     for j=1:11
         for k=1:4
-            [nz,ns] = neig(i,j,k);  % eighbor field
+            [nz,ns] = neig(i,j,k);  % neighbor field
             if 1 <= nz && nz <= 7 && 1 <= ns && ns <= 11
                 Qzeile = Qco(i,j);     % for rate from this field
                 Qspalte = Qco(nz,ns);  % for rate to this field
@@ -54,19 +54,18 @@ for i=1:7
 end
 
 %%% zero rates for nogo directions %%%
-for i=1:length(nogo)
+for i=1:length(nogo(:,1))
     % from
-    Qzeile = Qco(nogo(i,1),nogo(i,2));
+    Qzeile = Qco(nogo(i,2),nogo(i,1));
     % to
-    [nz,ns] = neig(nogo(i,1),nogo(i,2),nogo(i,3));
+    [nz,ns] = neig(nogo(i,2),nogo(i,1),nogo(i,3));
     Qspalte = Qco(nz,ns);
-
     Q(Qzeile, Qspalte) = 0;
 end
 
 %%% no rates for nobe area %%%
-for i=1:length(nobe)
-    Qzeile = Qco(nobe(i,1),nobe(i,2));
+for i=1:length(nobe(:,1))
+    Qzeile = Qco(nobe(i,2),nobe(i,1));
     Q(Qzeile,:) = zeros(1,77);
 end
 

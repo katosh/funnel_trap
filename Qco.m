@@ -1,3 +1,3 @@
 function num=Qco(zeile,spalte)
-num = (zeile-1)*7 + spalte;
+num = (zeile-1)*11 + spalte;
 end
