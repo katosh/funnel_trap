@@ -1,10 +1,12 @@
 %%% the no be area %%%
+% format: column,row
 nobe=[  1,1;
         1,2;
         1,6;
         1,7];
 
 %%% the no go directions %%%
+% format: column,row,direction(clockwise)
 nogo=[  % dont go to nobe
         1,2,3;
         2,2,3;
@@ -26,6 +28,11 @@ nogo=[  % dont go to nobe
         6,6,1;6,7,3;
         7,7,4;6,7,2;
         7,7,1;7,8,3];
+
+%%% lures and stinky spotts
+% format: column,row,factor for rates
+lures=[ 1,4,0.1;
+        5,4,10];
 
 %%% generate Q without limits (nobe & nogo) or diagonal %%%
 % base rate a
@@ -66,6 +73,15 @@ end
 %%% fill diagonal %%%
 for i=1:77
     Q(i,i)=-sum(Q(i,:));
+end
+
+%%% lures and stinky spotts %%%
+for i=1:length(lures(:,1))
+    factorM=ones(77,77);
+    co=Qco(lures(i,2),lures(i,1));
+    factorM(co,:)=lures(i,3);
+    factorM(:,co)=lures(i,3);
+    Q = Q .* factorM;
 end
 
 %%% preparing the kronecker sum (Q=Q1+Q2) %%%
