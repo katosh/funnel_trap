@@ -24,8 +24,8 @@ nogo=[  % dont go to nobe
         2,6,2;3,6,4;
         3,5,1;3,6,3;
         3,5,2;4,5,4;
-        5,5,4;4,5,2;
-        5,5,1;5,6,3; % lower part of line
+        5,5,4;4,5,2; % lower part of line
+        5,5,1;5,6,3;
         6,6,4;5,6,2;
         6,6,1;6,7,3;
         7,7,4;6,7,2;
@@ -79,7 +79,7 @@ Q1 = kron(Q,I);
 % rates for Particle 2
 Q2 = kron(I,Q);
 
-%%% intreducing the rope for Particle 2%%%
+%%% intreducing the rope for Particle 2 %%%
 rl = 3; % rope length
 for i=1:77 % line number ^= start point
     for j=1:77 % collum number ^= the state we ate going to
@@ -133,7 +133,7 @@ for i=1:77 % line number ^= start point
 
         %%% generate cutter matrix
         cut = repmat(gocutv,77,1) .* repmat(becutv',1,77);
-        % cutting out unwanted the rates
+        % cutting out unwanted rates
         zrange = (i-1)*77+1:i*77; % row range
         srange = (j-1)*77+1:j*77; % colum range
         Q2(zrange,srange) = Q2(zrange,srange) .* cut;
@@ -141,8 +141,7 @@ for i=1:77 % line number ^= start point
         for k=0:76
             z = zrange(1) + k;
             s = srange(1) + k;
-            Q2(z,s) = 0;
-            Q2(z,s) = -sum(Q2(z,srange));
+            Q2(z,s) = Q2(z,s)-sum(Q2(z,srange));
         end
     end
 end

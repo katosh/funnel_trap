@@ -2,8 +2,9 @@ profile on
 profile -memory on
 setpref('profiler', 'showJitLines', true);
 
-[V D]=eig(P);
-[W E]=eig(P');
+[V D]=eigs(Q,8,'LR');
+[W E]=eigs(Q',8,'LR');
+D=exp(D);
 p=W(:,1);
 p=p/sum(p);
 
@@ -44,7 +45,7 @@ for k=1:n
 end
 A=inv(B);
 chi=X*A;
-sym=diag(p)*P;
-max(max(sym-sym'))
+%sym=diag(p)*P;
+%max(max(sym-sym'))
 
 profile viewer

@@ -4,12 +4,12 @@
 
 function visChi(chi)
 
-chi=chi';
+chi=real(chi');
 
 for i=1:length(chi)
     figure(i)
-    P1 = zeros(77);
-    P2 = zeros(77);
+    P1 = zeros(1,77);
+    P2 = zeros(1,77);
     for j=1:77
         % index sets
         I1 = (1:77) + ((j-1)*77);
@@ -21,8 +21,12 @@ for i=1:length(chi)
     % rescaling for better contrast in plot
     mi = min(min(P1),min(P2));
     ma = max(max(P1),max(P2));
-    P1 = (P1 - mi)/(ma - mi);
-    P2 = (P2 - mi)/(ma - mi);
+    P1 = (P1 - mi);
+    P2 = (P2 - mi);
+    if mi ~= ma
+        P1 = P1/(ma-mi);
+        P2 = P2/(ma-mi);
+    end
     % ordering the values into the 11*7 box
     S1 = zeros(7,11);
     S2 = zeros(7,11);
