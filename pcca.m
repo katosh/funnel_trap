@@ -1,6 +1,6 @@
 n=4;          %3 metastabile Bereiche, da 3 EW in der Naehe von 1
-[V D]=eigs(Q,n,'LR');
-[W E]=eigs(Q',n,'LR');
+[V D]=eigs(Q,n,'LA');
+[W E]=eigs(Q',n,'LA');
 D=exp(D);
 p=W(:,1);
 p=p/sum(p);

@@ -1,12 +1,12 @@
 %%% the no be area %%%
-% format: column,row
+% format: row,column
 nobe=[  1,1;
-        1,2;
-        1,6;
-        1,7];
+        2,1;
+        6,1;
+        7,1];
 
 %%% the no go directions %%%
-% format: column,row,direction(clockwise)
+% format: row,column,direction(clockwise)
 nogo=[  % dont go to nobe
         1,2,3;
         2,2,3;
@@ -31,8 +31,8 @@ nogo=[  % dont go to nobe
 
 %%% lures and stinky spotts
 % format: column,row,factor for rates
-lures=[ 1,4,0.1;
-        5,4,10];
+lures=[ 4,1,0.1;
+        4,5,10];
 
 %%% generate Q without limits (nobe & nogo) or diagonal %%%
 % base rate a
@@ -56,16 +56,16 @@ end
 %%% zero rates for nogo directions %%%
 for i=1:length(nogo(:,1))
     % from
-    Qzeile = Qco(nogo(i,2),nogo(i,1));
+    Qzeile = Qco(nogo(i,1),nogo(i,2));
     % to
-    [nz,ns] = neig(nogo(i,2),nogo(i,1),nogo(i,3));
+    [nz,ns] = neig(nogo(i,1),nogo(i,2),nogo(i,3));
     Qspalte = Qco(nz,ns);
     Q(Qzeile, Qspalte) = 0;
 end
 
 %%% no rates for nobe area %%%
 for i=1:length(nobe(:,1))
-    Qzeile = Qco(nobe(i,2),nobe(i,1));
+    Qzeile = Qco(nobe(i,1),nobe(i,2));
     Q(Qzeile,:) = zeros(1,77);
 end
 
@@ -77,7 +77,7 @@ end
 %%% lures and stinky spotts %%%
 for i=1:length(lures(:,1))
     factorM=ones(77,77);
-    co=Qco(lures(i,2),lures(i,1));
+    co=Qco(lures(i,1),lures(i,2));
     factorM(co,:)=lures(i,3);
     factorM(:,co)=lures(i,3);
     Q = Q .* factorM;
