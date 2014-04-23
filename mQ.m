@@ -71,9 +71,11 @@ end
 
 %%% fill diagonal %%%
 for i=1:77
-    Q(i,i)=-sum(Q(i,:));
+    %Q(i,i)=-sum(Q(i,:));
+    Q(i,i) = 1; % difficult explanation
 end
 
+%{
 %%% lures and stinky spotts %%%
 for i=1:length(lures(:,1))
     factorM=ones(77,77);
@@ -82,6 +84,7 @@ for i=1:length(lures(:,1))
     factorM(:,co)=lures(i,3);
     Q = Q .* factorM;
 end
+%}
 
 %%% preparing the kronecker sum (Q=Q1+Q2) %%%
 I=eye(77);

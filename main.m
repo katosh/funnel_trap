@@ -9,4 +9,4 @@ mQ
 pcca
 visChi(chi)
 
-profile viewer
+%profile viewer
