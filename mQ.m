@@ -68,6 +68,7 @@ end
 for i=1:length(nobe(:,1))
     Qzeile = Qco(nobe(i,1),nobe(i,2));
     Q(Qzeile,:) = zeros(1,77);
+    Q(:,Qzeile) = zeros(1,77);
 end
 
 %%% fill diagonal %%%
