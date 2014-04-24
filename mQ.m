@@ -72,7 +72,7 @@ end
 %%% fill diagonal %%%
 for i=1:77
     %Q(i,i)=-sum(Q(i,:));
-    Q(i,i) = 1; % difficult explanation
+    Q(i,i) = a; % difficult explanation
 end
 
 %{
@@ -98,6 +98,8 @@ rl = 3; % rope length
 cutv = zeros(1,77^2); % cutting vector
 % looking for possible combination of states
 for i=1:77
+    % P1 .. Particle 1
+    % P2 .. Particle 2
     % for P1 in state i, P2 can be in the stats listed in P
     P=[i];
     for k=1:rl
@@ -108,7 +110,8 @@ for i=1:77
         P=[P nP];
     end
     P = sort(unique(P)); % not sure if this is necessary
-    range = 1:77 + ((i-1)*77); % fixed state i for P1
+    range = 1:77 + ((i-1)*77); % state i for P1
+    % range(P) are all the posible states of the system
     % adding possible states
     cutv(range(P))=1;
 end

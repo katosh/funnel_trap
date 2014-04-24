@@ -1,4 +1,4 @@
-n=4;          %3 metastabile Bereiche, da 3 EW in der Naehe von 1
+n=4;
 [V D]=eigs(Q,n,'LA');
 [W E]=eigs(Q',n,'LA');
 D=exp(D);
