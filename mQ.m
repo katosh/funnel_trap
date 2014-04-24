@@ -73,8 +73,8 @@ end
 
 %%% fill diagonal %%%
 for i=1:77
-    %Q(i,i)=-sum(Q(i,:));
-    Q(i,i) = a; % difficult explanation
+    Q(i,i)=-sum(Q(i,:));
+    %Q(i,i) = a; % difficult explanation
 end
 
 %{
