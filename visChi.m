@@ -12,8 +12,8 @@ for i=1:length(chi(:,1))
     P2 = zeros(1,77);
     for j=1:77
         % index sets
-        I2 = (1:77) + ((j-1)*77);
-        I1 = j:77:77^2;
+        I1 = (1:77) + ((j-1)*77);
+        I2 = j:77:77^2;
         % probabilities
         P1(j) = sum(chi(i,I1));
         P2(j) = sum(chi(i,I2));
