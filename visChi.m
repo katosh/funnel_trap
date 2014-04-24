@@ -33,7 +33,7 @@ for i=1:length(chi(:,1))
     for z=1:7
         for s=1:11
             S1(z,s) = P1(Qco(z,s));
-            P2(z,s) = P2(Qco(z,s));
+            S2(z,s) = P2(Qco(z,s));
         end
     end
     subplot(2,1,1)

@@ -116,7 +116,7 @@ for i=1:77
     range = (1:77) + ((i-1)*77); % state i for P1
     % range(P) are all the posible states of the system when P1 is in i
     % adding possible states
-    cutv(range(P))=1;
+    cutv(range(P)) = 1;
 end
 %%% kronecker sum %%%
 Q = Q1 + Q2;
