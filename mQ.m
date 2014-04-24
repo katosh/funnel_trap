@@ -113,8 +113,8 @@ for i=1:77
         P=[P nP];
     end
     P = sort(unique(P)); % not sure if this is necessary
-    range = 1:77 + ((i-1)*77); % state i for P1
-    % range(P) are all the posible states of the system
+    range = (1:77) + ((i-1)*77); % state i for P1
+    % range(P) are all the posible states of the system when P1 is in i
     % adding possible states
     cutv(range(P))=1;
 end
