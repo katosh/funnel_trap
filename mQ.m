@@ -61,6 +61,7 @@ for i=1:length(nogo(:,1))
     [nz,ns] = neig(nogo(i,1),nogo(i,2),nogo(i,3));
     Qspalte = Qco(nz,ns);
     Q(Qzeile, Qspalte) = 0;
+    Q(Qspalte, Qzeile) = 0;
 end
 
 %%% no rates for nobe area %%%
@@ -87,6 +88,7 @@ end
 %}
 
 %%% preparing the kronecker sum (Q=Q1+Q2) %%%
+sQ=Q;
 I=eye(77);
 % rates for Particle 1
 Q1 = kron(Q,I);
