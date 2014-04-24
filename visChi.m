@@ -11,12 +11,10 @@ for i=1:length(chi(:,1))
     P1 = zeros(1,77);
     P2 = zeros(1,77);
     for j=1:77
-        % index sets
-        I2 = (1:77) + ((j-1)*77);
-        I1 = j:77:77^2;
+        reshaped = reshape(chi(i,:),77,77)
         % probabilities
-        P1(j) = sum(chi(i,I1));
-        P2(j) = sum(chi(i,I2));
+        P1(j) = sum(reshaped(j,:))
+        P2(j) = sum(reshaped(:,j));
     end
     % rescaling for better contrast in plot
     mi = min(min(P1),min(P2));
