@@ -1,3 +1,5 @@
+function testCutv(cutv)
+
 % this is to visulize parts of the cutting vector cutv
 square = reshape(cutv,77,77)';
 
