@@ -1,4 +1,7 @@
+% this is to visulize parts of the cutting vector cutv
 square = reshape(cutv,77,77)';
+
+% loop over sime positions of P1 to limit the number of plots
 for i=10:20:77
     pos2 = reshape(square(i,:),11,7)';
     pos2 = pos2 * 255;
