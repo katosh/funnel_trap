@@ -1,6 +1,3 @@
-if ~exist('t')
-    t=1;
-end
-tic
+function mP(t)
 P=expm(t*Q);
-toc
+end
