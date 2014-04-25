@@ -121,9 +121,11 @@ end
 %%% kronecker sum %%%
 Q = Q1 + Q2;
 %%% generate cutter matrix
-cut = repmat(cutv,77^2,1) .* repmat(cutv',1,77^2);
+%cut = repmat(cutv,77^2,1) .* repmat(cutv',1,77^2);
 % cutting out unwanted rates
-Q = Q .* cut;
+%Q = Q .* cut;
+Q(:,find(cutv))=[];
+Q(find(cutv),:)=[];
 % fixing the diagonal for mass conservation
 for i=1:77^2
     Q(i,i) = Q(i,i)-sum(Q(i,:));

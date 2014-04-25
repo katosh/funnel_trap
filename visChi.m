@@ -2,9 +2,8 @@
 % the Matrix chi for the Problem of two linked particles
 % in a 11x7 state box.
 
-function visChi(chi)
-
 chi=real(chi);
+
 
 for i=1:length(chi(1,:))
     figure(i)
@@ -33,5 +32,4 @@ for i=1:length(chi(1,:))
     subplot(2,1,2);
     image(S2*255);
     %colorbar(mi:ma);
-end
 end

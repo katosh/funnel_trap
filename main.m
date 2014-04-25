@@ -8,6 +8,6 @@ clear
 mQ
 mP
 pccaP
-visChi(chi)
+visChi
 
 %profile viewer
