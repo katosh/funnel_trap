@@ -127,7 +127,7 @@ Q = Q1 + Q2;
 Q(:,find(cutv))=[];
 Q(find(cutv),:)=[];
 % fixing the diagonal for mass conservation
-for i=1:77^2
+for i=1:length(Q(1,:))
     Q(i,i) = Q(i,i)-sum(Q(i,:));
 end
 % done

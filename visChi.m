@@ -4,6 +4,10 @@
 
 chi=real(chi);
 
+% expand chi to original size
+nchi = zeros(77^2,length(chi(1,:));
+nchi(find(cutv)) = chi;
+chi = nchi;
 
 for i=1:length(chi(1,:))
     figure(i)
