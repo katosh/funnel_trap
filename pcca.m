@@ -1,5 +1,5 @@
-n=4;
-len=length(P(1,:));
+n=8;
+len=length(Q(1,:));
 [V D]=eigs(Q,n,'LA');
 [W E]=eigs(Q',n,'LA');
 D=exp(D);
