@@ -6,7 +6,8 @@ setpref('profiler', 'showJitLines', true);
 clear
 
 mQ
-pcca
+mP
+pccaP
 visChi(chi)
 
 %profile viewer
