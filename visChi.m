@@ -11,7 +11,7 @@ for i=1:length(chi(:,1))
     P1 = zeros(1,77);
     P2 = zeros(1,77);
     for j=1:77
-        reshaped = reshape(chi(i,:),77,77)
+        reshaped = reshape(chi(i,:),77,77);
         % probabilities
         P1(j) = sum(reshaped(j,:))
         P2(j) = sum(reshaped(:,j));
