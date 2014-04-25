@@ -32,7 +32,9 @@ for i=1:length(chi(1,:))
     S2 = reshape(P2,11,7)';
     subplot(2,1,1)
     image(S1*255);
+    colormap('gray')
     subplot(2,1,2);
     image(S2*255);
+    colormap('gray')
     %colorbar(mi:ma);
 end

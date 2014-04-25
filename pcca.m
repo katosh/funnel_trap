@@ -5,6 +5,7 @@ len=length(P(1,:));
 D=exp(D);
 p=W(:,1);
 p=p/sum(p);
+eigenwerte = D(1:n)
 
 X=V(:,1:n);
 d=diag(p);

@@ -5,6 +5,9 @@ nobe=[  1,1;
         6,1;
         7,1];
 
+% nobe vector in sens of states in Q
+vnobe = ((nobe(:,1)-1)*11) + nobe(:,2);
+
 %%% the no go directions %%%
 % format: row,column,direction(clockwise)
 nogo=[  % dont go to nobe
@@ -104,19 +107,21 @@ for i=1:77
     % P1 .. Particle 1
     % P2 .. Particle 2
     % for P1 in state i, P2 can be in the stats listed in P
-    P=[i];
-    for k=1:rl
-        nP=[]; % new Positions to be added later
-        for p=P
-            nP=[nP find(Q(p,:)~=0)];
+    if ~ismember(i,vnobe)
+        P=[i];
+        for k=1:rl
+            nP=[]; % new Positions to be added later
+            for p=P
+                nP=[nP find(Q(p,:)~=0)];
+            end
+            P=[P nP];
         end
-        P=[P nP];
+        P = sort(unique(P)); % not sure if this is necessary
+        range = (1:77) + ((i-1)*77); % state i for P1
+        % range(P) are all the posible states of the system when P1 is in i
+        % adding possible states
+        cutv(range(P)) = 1;
     end
-    P = sort(unique(P)); % not sure if this is necessary
-    range = (1:77) + ((i-1)*77); % state i for P1
-    % range(P) are all the posible states of the system when P1 is in i
-    % adding possible states
-    cutv(range(P)) = 1;
 end
 %%% kronecker sum %%%
 Q = Q1 + Q2;
