@@ -5,16 +5,15 @@
 chi=real(chi);
 
 % expand chi to original size
-nchi = zeros(77^2,length(chi(1,:));
-nchi(find(cutv)) = chi;
-chi = nchi;
+nchi = zeros(77^2,length(chi(1,:)));
+nchi(find(cutv),:) = chi(:,:);
 
 for i=1:length(chi(1,:))
     figure(i)
     P1 = zeros(1,77);
     P2 = zeros(1,77);
     for j=1:77
-        reshaped = reshape(chi(:,i),77,77);
+        reshaped = reshape(nchi(:,i),77,77);
         % probabilities
         P1(j) = sum(reshaped(j,:));
         P2(j) = sum(reshaped(:,j));

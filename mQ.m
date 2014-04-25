@@ -124,8 +124,8 @@ Q = Q1 + Q2;
 %cut = repmat(cutv,77^2,1) .* repmat(cutv',1,77^2);
 % cutting out unwanted rates
 %Q = Q .* cut;
-Q(:,find(cutv))=[];
-Q(find(cutv),:)=[];
+Q(:,find(cutv==0))=[];
+Q(find(cutv==0),:)=[];
 % fixing the diagonal for mass conservation
 for i=1:length(Q(1,:))
     Q(i,i) = Q(i,i)-sum(Q(i,:));
