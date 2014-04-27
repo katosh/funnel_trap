@@ -7,7 +7,7 @@ clear
 
 mQ
 P=mP(Q,1);
-chi=pccaplus(P);
+pccaP;
 visChi
 
 %profile viewer
