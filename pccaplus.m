@@ -83,7 +83,7 @@ chi = X*A;
     
     function A = optimize(A0)
         display(I1(A0))
-        PROBLEM.objective = @(A) I1(A);
+        PROBLEM.objective = @(A) I1(feasible(A));
         PROBLEM.x0 = A0;
         PROBLEM.options = optimset('MaxIter',100);
         PROBLEM.solver = 'fminsearch';
