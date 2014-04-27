@@ -9,7 +9,7 @@ f = feasible(g)
 A = optimize(f)
 chi = X*A;
 
-    function X=orthogonaliz(X,pi)
+    function X=orthonormalize(X,pi)
         V=X;
         d=diag(pi);
         for k=1:length(X(1,:))
