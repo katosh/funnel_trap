@@ -1,9 +1,8 @@
 function chi=pccaplus(P)
-nC=3; % number of clusters
-s=length(P);
-
+s=length(P); % size of membership basis
 pi = calcpi(P);
-[X D]=eigs(P,nC,'lr'); % right eigenvectors (for conformations)
+[X D]=eigs(P,min(20,s),'lr'); % right eigenvectors (for conformations)
+nC = sum(diag(D)>0.85) % number of clusters
 g = guess(X);
 f = feasible(g);
 A = optimize(f);
