@@ -7,8 +7,15 @@ pi = calcpi(P);
 A = optimize(feasible(guess(X)));
 chi = X*A;
 
-    function X=normalize(X)
-        X=X % implement normalization
+    function X=orthogonaliz(X,pi)
+        V=X;
+        d=diag(pi);
+        for k=1:length(X(1,:))
+            for i=1:1:k-1
+               X(:,k)=X(:,k)-(X(:,i)'*d*V(:,k))*X(:,i);
+            end
+            X(:,k)=X(:,k)/sqrt(X(:,k)'*d*X(:,k));  %Normalisieren
+        end
     end
 
     function pi=calcpi(P)
