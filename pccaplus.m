@@ -73,8 +73,8 @@ chi = X*A;
         A = Ab / sum(Ab(1,:));
     end
     
-    function I1(A)
-        I1=sum(max((X*A)'));
+    function B=I1(A)
+        B=sum(max(X*A)');
     end
     
     function I2(A)
@@ -82,7 +82,8 @@ chi = X*A;
     end
     
     function A = optimize(A0)
-        PROBLEM.objective = @(A) min(min(abs(A)));
+        display(I1(A0))
+        PROBLEM.objective = @(A) I1(A);
         PROBLEM.x0 = A0;
         PROBLEM.options = optimset('MaxIter',100);
         PROBLEM.solver = 'fminsearch';
