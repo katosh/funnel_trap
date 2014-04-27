@@ -9,7 +9,6 @@ mQ
 P=mP(Q,1);
 pccaP
 %chi=pccaplus(P);
-pccaP;
 visChi
 
 %profile viewer
