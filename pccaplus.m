@@ -6,7 +6,7 @@ pi = calcpi(P);
 [X D]=eigs(P,nC,'lr'); % right eigenvectors (for conformations)
 g = guess(X)
 f = feasible(g)
-optimize(f)
+A = optimize(f)
 chi = X*A;
 
     function X=orthogonaliz(X,pi)
@@ -36,7 +36,7 @@ chi = X*A;
         vt=[];
         for j=1:nC
             rownorm = sqrt(diag(X*X'));
-            ind(j) = find(rownorm == max(rownorm));
+            ind(j) = find(rownorm == max(rownorm),1);
 
             if j ~= 1
                 X = X / rownorm(ind(j));
@@ -81,7 +81,11 @@ chi = X*A;
         
     end
     
-    function optimize(A0)
-        optimize = fminsearch(@(A) I1(A),A0,optimset('MaxIter',100));
+    function A = optimize(A0)
+        PROBLEM.objective = @(A) min(min(abs(A)));
+        PROBLEM.x0 = A0;
+        PROBLEM.options = optimset('MaxIter',100);
+        PROBLEM.solver = 'fminsearch';
+        A = fminsearch(PROBLEM);
     end
 end
