@@ -4,7 +4,9 @@ s=length(P);
 
 pi = calcpi(P);
 [X D]=eigs(P,nC,'lr'); % right eigenvectors (for conformations)
-A = optimize(feasible(guess(X)));
+g = guess(X)
+f = feasible(g)
+optimize(f)
 chi = X*A;
 
     function X=normalize(X)
@@ -18,9 +20,11 @@ chi = X*A;
         pi=pi/sum(pi); % normalize as partition of unity
     end
     
+
     function Ab0 = guess(X)
         %  Alg3.9 Infeasible initial guess
         %   Alg3.8 Index mapping
+        Xorg = X;
         ind=[];
         vt=[];
         for j=1:nC
@@ -39,11 +43,10 @@ chi = X*A;
                 for i=1:s
                     X(i,:) = X(i,:) - (vt(j,:)*X(i,:)')*vt(j,:);
                 end
-            end     
+            end
         end
-
         %  Alg3.9 infeasible initial guess
-        Ab0 = X(ind,:)^-1; % A-bar-0
+        Ab0 = Xorg(ind,:)^-1; % A-bar-0
     end
 
     function A=feasible(Ab)
@@ -71,7 +74,7 @@ chi = X*A;
         
     end
     
-    function optimize(A0)        
-        optimize = feasible(fminsearch(@(A) I1(feasible(A)),A0,optimset('MaxIter',100)));
+    function optimize(A0)
+        optimize = fminsearch(@(A) I1(A),A0,optimset('MaxIter',100));
     end
 end
