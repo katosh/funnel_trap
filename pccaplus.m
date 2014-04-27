@@ -72,6 +72,11 @@ chi = X*A;
         % Step 3
         A = Ab / sum(Ab(1,:));
     end
+
+    function A = unite(kA,A0)
+        A = A0;
+        A(2:end,2:end) = kA;
+    end
     
     function B=I1(A)
         B=sum(max(X*A)');
@@ -82,10 +87,11 @@ chi = X*A;
     end
     
     function A = optimize(A0)
-        PROBLEM.objective = @(A) I1(feasible(A));
-        PROBLEM.x0 = A0;
+        PROBLEM.objective = @(A) I1(feasible(unite(A,A0)));
+        PROBLEM.x0 = A0(2:end,2:end);
         PROBLEM.options = optimset('MaxIter',100);
         PROBLEM.solver = 'fminsearch';
-        A = fminsearch(PROBLEM);
+        A = A0;
+        A(2:end,2:end) = fminsearch(PROBLEM);
     end
 end
