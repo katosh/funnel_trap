@@ -31,13 +31,13 @@ chi = X*A;
                 X = X / rownorm(ind(j));
             end
 
-            vt(j) = X(ind(j),:); % v-tilda
+            vt(j,:) = X(ind(j),:); % v-tilda
 
             if j == 1
-                X = X-repmat(vt(1),nC,1);
+                X = X-repmat(vt(1,:),s,1);
             else
-                for i=1:len
-                    X(i,:) = X(i,:) - (vt(j)*X(i,:)')*vt(j);
+                for i=1:s
+                    X(i,:) = X(i,:) - (vt(j,:)*X(i,:)')*vt(j,:);
                 end
             end     
         end
