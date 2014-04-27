@@ -4,9 +4,9 @@ s=length(P);
 
 pi = calcpi(P);
 [X D]=eigs(P,nC,'lr'); % right eigenvectors (for conformations)
-g = guess(X)
-f = feasible(g)
-A = optimize(f)
+g = guess(X);
+f = feasible(g);
+A = optimize(f);
 chi = X*A;
 
     function X=orthogonaliz(X,pi)
