@@ -91,6 +91,6 @@ chi = X*A;
         PROBLEM.x0 = A0(2:end,2:end);
         PROBLEM.options = optimset('MaxIter',100);
         PROBLEM.solver = 'fminsearch';
-        A = unite(fminsearch(PROBLEM),A0);
+        A = feasible(unite(fminsearch(PROBLEM),A0));
     end
 end
