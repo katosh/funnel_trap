@@ -1,12 +1,15 @@
 function chi=pccaplus(P)
 nC=3; % number of clusters
-s=len(P);
+s=length(P);
 
 pi = calcpi(P);
-X, D=eigs(P,nC,'lr'); % right eigenvectors (for conformations)
-Ab0 = guess(X);
-A = optimize(A0);
+[X D]=eigs(P,nC,'lr'); % right eigenvectors (for conformations)
+A = optimize(feasible(guess(X)));
 chi = X*A;
+
+    function X=normalize(X)
+        X=X % implement normalization
+    end
 
     function pi=calcpi(P)
         % calculate equilibrium distribution
@@ -61,7 +64,7 @@ chi = X*A;
     end
     
     function I1(A)
-        I1=sum(max((X*A)');        
+        I1=sum(max((X*A)'));
     end
     
     function I2(A)
