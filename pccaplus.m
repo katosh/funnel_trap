@@ -60,12 +60,12 @@ chi = X*A;
         % Alg3.10 feasable transformation matrix
         % Step 1
         for j=2:nC
-            Ab(j,1) = -sum(Ab(j,:)) + Ab(j,1);
+            Ab(j,1) = -sum(Ab(j,2:end));
         end
         % Step 2
         for i=1:nC
             for l=1:nC
-                temp(l) = X(l,:)*Ab(:,i) - Ab(1,i)*X(l,1);
+                temp(l) = X(l,2:end)*Ab(2:end,i);
             end
             Ab(1,i) = - min(temp);    
         end
