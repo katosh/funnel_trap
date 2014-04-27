@@ -19,8 +19,8 @@ for i=1:length(chi(1,:))
         P2(j) = sum(reshaped(:,j));
     end
     % rescaling for better contrast in plot
-    mi = min(min(P1),min(P2));
-    ma = max(max(P1),max(P2));
+    mi = min(min(P1),min(P2))
+    ma = max(max(P1),max(P2))
     P1 = (P1 - mi);
     P2 = (P2 - mi);
     if mi ~= ma

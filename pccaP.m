@@ -1,10 +1,10 @@
-n=4;
+n=2;
 len=length(P(1,:));
 [V D]=eigs(P,n,'LR');
 [W E]=eigs(P',n,'LR');
 p=W(:,1);
 p=p/sum(p);
-eigenwerte = D(1:n)
+eigenwerte = diag(D)
 
 X=V(:,1:n);
 d=diag(p);
