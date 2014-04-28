@@ -4,6 +4,7 @@ pi = calcpi(P);
 [X D]=eigs(P,min(20,s),'lr'); % right eigenvectors (for conformations)
 nC = sum(diag(D)>0.85); % number of clusters
 X = X(:,1:nC);
+X = orthonormalize(X,pi);
 g = guess(X);
 f = feasible(g);
 A = optimize(f);
