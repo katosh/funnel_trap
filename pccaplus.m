@@ -64,7 +64,7 @@ chi = X*A;
         end
         % Step 2
         for i=1:nC
-            for l=1:nC
+            for l=1:s
                 temp(l) = X(l,2:end)*Ab(2:end,i);
             end
             Ab(1,i) = - min(temp);    
